@@ -55,10 +55,8 @@ const Login = async (req, res) => {
       // generating jwt token and store in cookie
 
       const token = jwt.sign({ email: email }, process.env.PRIVATE_KEY);
-      res.cookie("UserToken", token, {
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24, // Expires in 1 day
-      });
+
+      res.cookie(`UserToken=${token}; Path=/; SameSite=None; Secure`);
 
       res.status(200).json({ msg: "User Found Successfully", token });
     }
