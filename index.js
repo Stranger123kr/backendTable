@@ -4,6 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("./DB/Connect");
+const session = require("express-session");
 // =================================
 
 const router = require("./Routes/Route");
@@ -16,6 +17,21 @@ server.use(
     credentials: true,
   })
 );
+
+server.use(
+  session({
+    secret: "This Cart",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true, maxAge: 1000 * 60 * 60 * 24 },
+  })
+);
+
+server.get("/test", (req, res) => {
+  req.session.test ? req.session.test++ : (req.session.test = 1);
+  res.send(req.session.test.toString());
+});
+
 server.use(cookieParser());
 server.use(express.json());
 server.use("/", router);
