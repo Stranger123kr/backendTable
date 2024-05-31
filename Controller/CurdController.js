@@ -55,8 +55,10 @@ const Login = async (req, res) => {
       // generating jwt token and store in cookie
 
       const token = jwt.sign({ email: email }, process.env.PRIVATE_KEY);
-
-      res.cookie(`UserToken=${token}; Path=/; SameSite=None; Secure`);
+      res.cookie("UserToken", token, {
+        httpOnly: true,
+        secure: false,
+      });
 
       res.status(200).json({ msg: "User Found Successfully", token });
     }
