@@ -11,19 +11,24 @@ const router = require("./Routes/Route");
 
 // =================================
 
+server.use(cookieParser());
+
 server.use(
-  cors({
-    origin: process.env.URL,
-    credentials: true,
+  session({
+    secret: "keySecret",
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // don't create session until something stored
+    cookie: {
+      sameSite: "None",
+      secure: true,
+    },
   })
 );
 
 server.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true, maxAge: 1000 * 60 * 60 * 24 },
+  cors({
+    origin: process.env.URL,
+    credentials: true,
   })
 );
 
@@ -32,7 +37,6 @@ server.get("/test", (req, res) => {
   res.send(req.session.test.toString());
 });
 
-server.use(cookieParser());
 server.use(express.json());
 server.use("/", router);
 // =================================
