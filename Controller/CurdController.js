@@ -106,7 +106,12 @@ const Logout = async (req, res) => {
         return res.status(401).json({ message: "Invalid token" });
       }
 
-      res.clearCookie("UserToken", { path: "/" });
+      res.clearCookie("UserToken", {
+        path: "/",
+        sameSite: "none",
+        secure: true,
+      });
+
       res.status(200).json({ message: "User logged out" });
     });
   } catch (error) {
