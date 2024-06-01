@@ -58,7 +58,9 @@ const Login = async (req, res) => {
       res.cookie("UserToken", token, {
         httpOnly: true,
         secure: true,
-        sameSite: "none", // or 'Lax' or 'None'
+        path: "/",
+        domain: "https://frontendtable.vercel.app",
+        sameSite: "Lax", // or 'Lax' or 'None'
         maxAge: 3600000, // 1 hour
       });
 
