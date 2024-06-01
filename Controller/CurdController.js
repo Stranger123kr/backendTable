@@ -59,7 +59,7 @@ const Login = async (req, res) => {
         httpOnly: true,
         secure: true,
         path: "/",
-        domain: "https://frontendtable.vercel.app",
+        domain: "https://backendtable.onrender.com",
         sameSite: "Lax", // or 'Lax' or 'None'
         maxAge: 3600000, // 1 hour
       });

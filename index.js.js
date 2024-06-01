@@ -14,6 +14,7 @@ server.use(
   cors({
     origin: process.env.URL,
     credentials: true,
+    sameSite: "Lax", // or 'Strict'
   })
 );
 server.use(cookieParser());
