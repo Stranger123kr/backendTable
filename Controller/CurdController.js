@@ -58,10 +58,7 @@ const Login = async (req, res) => {
       res.cookie("UserToken", token, {
         httpOnly: true,
         secure: true,
-        path: "/",
-        domain: "https://backendtable.onrender.com",
-        sameSite: "Lax", // or 'Lax' or 'None'
-        maxAge: 3600000, // 1 hour
+        maxAge: 600000, // 10 minutes in milliseconds
       });
 
       res.status(200).json({ msg: "User Found Successfully", token });
