@@ -57,7 +57,9 @@ const Login = async (req, res) => {
       const token = jwt.sign({ email: email }, process.env.PRIVATE_KEY);
       res.cookie("UserToken", token, {
         httpOnly: true,
-        secure: false,
+        secure: true,
+        sameSite: "Strict", // or 'Lax' or 'None'
+        maxAge: 1500000, // 25 minutes in milliseconds
       });
 
       res.status(200).json({ msg: "User Found Successfully", token });
